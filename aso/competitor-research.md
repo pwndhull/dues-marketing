@@ -42,4 +42,4 @@ Copy for each app actually reviewed.
 ```
 
 ## Next step
-Part of [Task 003 — keyword research](../tasks/inbox/003-keyword-research-en-au-us-gb.md): check which of these appear in actual App Store search results for candidate phrases, per storefront, and record the date.
+Part of [Task 003 — keyword research](../tasks/inbox/003-keyword-research-per-localization.md): check which of these appear in actual App Store search results for candidate phrases, per storefront, and record the date.
