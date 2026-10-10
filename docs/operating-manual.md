@@ -4,7 +4,7 @@ Detailed procedures referenced from [`CLAUDE.md`](../CLAUDE.md). For how the use
 
 ## 1. Session start checklist
 1. `git status`, `git branch --show-current`, `git log --oneline -10`. Stop and ask if there are uncommitted changes you didn't make.
-2. Read `README.md` → `CLAUDE.md` → `strategy/30-day-plan.md` → `tasks/in-progress/` → `tasks/review/` → `tasks/inbox/` (P0 first).
+2. Read `README.md` → `CLAUDE.md` → `docs/handoff.md` → `strategy/30-day-plan.md` → `tasks/in-progress/` → `tasks/review/` → `tasks/inbox/` (P0 first).
 3. Read the decisions index `docs/decisions/README.md` for anything affecting the task.
 4. Read the specific files the chosen task links.
 
@@ -61,7 +61,7 @@ See [`experiments/backlog.md`](../experiments/backlog.md) for the template. Back
 
 ## 9. Finishing a task
 1. Validate: links resolve, numbers trace to sources, no fabricated values, no sensitive data in `git diff`.
-2. Fill the task's Handoff section and move it to `tasks/review/`.
+2. Fill the task's Handoff section and move it to `tasks/review/`. Update [`docs/handoff.md`](handoff.md) (required every session).
 3. Commit, push, open/update a draft PR.
 4. Report using the end-of-session summary in [collaboration protocol §8](collaboration-protocol.md#8-end-of-session-summary-substantial-sessions).
 5. The user moves it to `tasks/done/` after review (or asks Claude to).

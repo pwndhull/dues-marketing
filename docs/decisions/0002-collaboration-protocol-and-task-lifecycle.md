@@ -11,7 +11,8 @@ Decision [0001](0001-workspace-and-guardrails.md) established GitHub as the shar
 1. Collaboration follows [`docs/collaboration-protocol.md`](../collaboration-protocol.md): repo-only handoffs, evidence labels, ChatGPT proposals verified before implementation.
 2. Task lifecycle is folder-based: `inbox → in-progress → review → done`, with `Blocked` as a status inside `in-progress/` ([`tasks/README.md`](../../tasks/README.md)). Priorities P0/P1/P2.
 3. ASO evidence, keyword research, competitor research, and drafts are recorded **per localization / storefront**.
-4. No GitHub Actions workflows are added during bootstrap. A minimal read-only guard workflow is proposed in the bootstrap handoff for the user to accept or reject.
+4. Every session ends by updating `docs/handoff.md` (instructed by the user on 2026-10-10).
+5. No GitHub Actions workflows are added during bootstrap. A minimal read-only guard workflow is proposed in the bootstrap handoff for the user to accept or reject.
 
 ## Alternatives considered
 - GitHub Issues/Projects as the task system: richer UI, but ChatGPT reads files more reliably than project boards, and folder state is visible in every clone. Issue templates are provided for intake; the task file remains canonical.

@@ -1,43 +1,44 @@
 # Dues — Marketing Workspace
 
-Shared workspace for planning, executing, and measuring marketing for **Dues: Bill Tracker Reminder** (App Store ID: 6761047973).
+Shared, evidence-driven workspace for marketing **Dues: Bill Tracker & Reminder** — an iOS bill tracker and reminder app ([App Store ID 6761047973](https://apps.apple.com/app/id6761047973)), free with monthly/yearly and Family Plan subscriptions, English only, live since 2026-04-22 (v1.2.0 on 2026-09-28).
 
-## Operating model
+## Goals
+Increase qualified App Store impressions, product-page conversion, downloads, and sustainable subscription revenue in English-speaking markets — organic-first (ASO, useful content, low-cost experiments), with markets prioritised by verified data. Marketing spend ceiling **AUD $100/month**, only with explicit approval. No outcome is promised.
 
-- **ChatGPT:** strategy, research briefs, prioritisation, and review.
-- **Claude Code:** scoped implementation, content drafts, documentation, and analysis.
-- **GitHub:** source of truth for tasks, approved copy, experiments, decisions, and reviewed aggregate reports.
+## Current status (2026-10-10)
+- Public listing audited in 16 English-served storefronts → [`aso/current-listing-audit.md`](aso/current-listing-audit.md). **The listing differs by region** (US subtitle "Bill Payment Manager & Budget" vs "Split Bills & Track Payments" elsewhere; prices per storefront).
+- Live trust issues found: Terms of Use link 404, privacy policy branded "BillFlow", an apparent real email in a screenshot → [Task 002](tasks/inbox/002-listing-trust-and-compliance-fixes.md).
+- Performance baseline: **no data yet** — waiting for App Store Connect exports → [Task 001](tasks/in-progress/001-aso-baseline-audit.md).
+- Current priorities: [`strategy/30-day-plan.md`](strategy/30-day-plan.md). Latest session handoff: [`docs/handoff.md`](docs/handoff.md).
 
-This repository is a handoff workspace, not a continuous autonomous conversation between models. Every task should have a clear owner, deliverable, and approval status.
+## Who does what
+| | Role |
+|---|---|
+| **User** | Priorities, account exports, confirmations, approvals, and every live action |
+| **Claude Code** | Research, drafts, analysis, documentation, commits, draft PRs — see [`CLAUDE.md`](CLAUDE.md) |
+| **ChatGPT** | Reviews repo state and handoffs; proposes changes as tasks |
+
+GitHub is the only shared memory; the models don't see each other's conversations. Protocol: [`docs/collaboration-protocol.md`](docs/collaboration-protocol.md).
+
+## Task workflow
+`tasks/inbox/ → tasks/in-progress/ → tasks/review/ → tasks/done/` — the folder is the status; blocked tasks stay in `in-progress/` with a blocker note. P0/P1/P2 priorities. See [`tasks/README.md`](tasks/README.md) and the [template](tasks/_template.md).
+
+## Where things are
+| Folder | Contents |
+|---|---|
+| `strategy/` | Positioning, audience, market research, 30-day plan |
+| `tasks/` | Task files by status |
+| `aso/` | Listing audit, keyword research, competitor research, listing drafts (per localization) |
+| `content/` | `calendar.csv`, `scripts/` (drafts), `assets/`, `approved/` |
+| `analytics/` | `baseline.md`, `metric-definitions.md`, `reports/` (aggregates); `imports/` is local-only and Git-ignored |
+| `experiments/` | `backlog.md`, `active.md`, `results.md` |
+| `docs/` | Operating manual, collaboration protocol, handoff, `decisions/` |
+| `.github/` | Issue templates, PR template (no workflows) |
 
 ## Guardrails
-
-- Never invent app features, testimonials, ratings, download counts, revenue, or experiment results.
-- Label assumptions and hypotheses clearly; cite sources for external research and note the date checked.
-- Do not publish App Store metadata, post content, start ads, spend money, or change live accounts without explicit human approval.
-- Do not commit raw analytics exports, customer-level data, credentials, API keys, certificates, or private reports.
-- Prefer low-cost, organic-first growth. Monthly marketing spend ceiling: **AUD $100**, subject to explicit approval before any spend.
-- Keep drafts separate from approved assets. Approval in GitHub does not itself authorize publishing.
+- Never invent features, testimonials, ratings, downloads, revenue, search volume, or experiment results. Label facts, hypotheses, and unknowns.
+- No publishing, App Store submission, posting, ads, spending, price changes, or contacting users without explicit approval for that action. Approving a draft ≠ approving publication.
+- Never commit raw analytics, customer-level data, credentials, keys, or certificates.
 
 ## Start here
-
-1. Read [Claude instructions](CLAUDE.md).
-2. Review [positioning](strategy/positioning.md) and the [30-day plan](strategy/30-day-plan.md).
-3. Start with the ASO audit task in `tasks/inbox/`.
-4. Add current metrics only from verified App Store Connect / subscription analytics exports; keep raw files local and use aggregate summaries in `analytics/reports/`.
-5. Record every experiment, its hypothesis, metric, dates, result, and decision under `experiments/`.
-
-## Repository structure
-
-- `strategy/` — positioning and marketing plan
-- `tasks/inbox/`, `tasks/in-progress/`, `tasks/done/` — task workflow
-- `aso/` — keyword research and listing drafts
-- `content/` — calendar, scripts, and approved assets
-- `analytics/imports/` — local-only raw exports (Git-ignored)
-- `analytics/reports/` — reviewed aggregate reports
-- `experiments/` — active tests and outcomes
-- `docs/decisions/` — dated decisions and rationale
-
-## Status
-
-Initial workspace setup. Baseline performance and product claims are intentionally marked as unknown until verified.
+New collaborator: this file → [`docs/handoff.md`](docs/handoff.md) → [`strategy/30-day-plan.md`](strategy/30-day-plan.md) → [`aso/current-listing-audit.md`](aso/current-listing-audit.md) → [`tasks/README.md`](tasks/README.md).

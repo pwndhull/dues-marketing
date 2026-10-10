@@ -71,7 +71,9 @@ Before implementing any ChatGPT proposal, Claude must:
 - Never mark a task done until its deliverables exist and validation is recorded.
 
 ## 8. End-of-session summary (substantial sessions)
-Update the task file, then report:
+**Every session ends by updating [`docs/handoff.md`](handoff.md)** (user instruction, 2026-10-10) with: session date and objective; work completed with commit SHAs; files changed and validation performed; outstanding issues, assumptions and blockers; next recommended task with acceptance criteria; actions requiring explicit human approval. It is committed with the related work, stays factual (no "tests passed" unless run), and never contains secrets, customer data, or raw analytics. It replaces the previous session's entry; history is in Git. Never assume ChatGPT or another AI has reviewed changes unless the repo records that review.
+
+Also update the task file, then report:
 1. What was completed
 2. Files created or modified
 3. Evidence gathered and sources
