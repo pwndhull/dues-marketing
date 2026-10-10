@@ -63,11 +63,11 @@ Turn the repository into an evidence-driven marketing workspace that Claude Code
 ### Live listing findings that need the user's attention
 Full detail and sources: [`aso/current-listing-audit.md`](../../aso/current-listing-audit.md).
 - **L1 — Terms of Use link returns HTTP 404** (`https://easy-bills.netlify.app/terms`).
-- **L2 — Privacy policy page is titled "BillFlow"**, last updated 22 March 2026, and does not appear to describe data types declared in the App Privacy label (e.g. contacts, phone number, coarse location). "BillFlow" is also the name of a different app shown in "You Might Also Like".
-- **L3 — Screenshot 3 appears to display a real email address.** Not reproduced in this repo.
+- **L2 — Privacy policy page is titled "BillFlow"**, last updated 22 March 2026. Its text does not mention several data types the App Privacy label declares, such as contacts, phone number and coarse location (re-confirmed in Task 005). "BillFlow" is also the name of a different app shown in "You Might Also Like".
+- **L3 — Screenshot 3 displays an email-format address.** Whether it is a real person's address is Unknown (corrected in Task 005). Not reproduced in this repo.
 - **L4 — Description still headed "NEW IN VERSION 1.1.0"** while the live version is 1.2.0.
 
-These are tracked in [Task 002](../inbox/002-listing-trust-and-compliance-fixes.md). Claude has not changed anything live.
+Task 005 re-checked these findings on the same day; see [`aso/current-listing-audit.md` §8](../../aso/current-listing-audit.md#8-reconciliation-log--task-005-2026-10-10). These are tracked in [Task 002](../inbox/002-listing-trust-and-compliance-fixes.md). Claude has not changed anything live.
 
 ## Deliverables
 - [x] Audit recorded (this file)

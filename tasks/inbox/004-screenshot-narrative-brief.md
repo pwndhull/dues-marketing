@@ -12,7 +12,7 @@
 ## Objective
 Write a captioned screenshot storyboard using real Dues screens and verified features only, with realistic demo data appropriate for the target storefront.
 
-**Business reason:** current screenshots have no captions, don't show the subtitle's lead feature, and show long-overdue bills, lakh-grouped dollar figures, and an apparent real email ([audit §3](../../aso/current-listing-audit.md#3-screenshots--verified-public)). Whether better screenshots improve conversion is a **hypothesis**, to be measured.
+**Business reason:** current screenshots have no captions, don't show the subtitle's lead feature, and show long-overdue bills, lakh-grouped dollar figures, and an email-format address that may or may not be real ([audit §3](../../aso/current-listing-audit.md#3-screenshots--verified-public)). Whether better screenshots improve conversion is a **hypothesis**, to be measured.
 
 ## Constraints
 - Real UI only; no mock features. Demo data only — no personal data.

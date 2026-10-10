@@ -18,7 +18,7 @@ inbox/  →  in-progress/  →  review/  →  done/
 Move files with `git mv` so history follows them.
 
 ## Naming and IDs
-`NNN-short-slug.md`, IDs sequential and never reused. Next free ID: **005**.
+`NNN-short-slug.md`, IDs sequential and never reused. Next free ID: **006**.
 
 ## Priorities
 - **P0** — blocks evidence-based decisions or fixes a live trust/compliance problem.
@@ -41,3 +41,4 @@ Use [`_template.md`](_template.md).
 | 002 | [Listing trust and compliance fixes](inbox/002-listing-trust-and-compliance-fixes.md) | P0 | User (Claude drafts) | inbox |
 | 003 | [Keyword research per localization](inbox/003-keyword-research-per-localization.md) | P1 | Claude | inbox (blocked on keyword fields) |
 | 004 | [Screenshot narrative brief](inbox/004-screenshot-narrative-brief.md) | P1 | Claude drafts, User captures | inbox |
+| 005 | [Reconcile App Store listing evidence](review/005-reconcile-listing-evidence.md) | P0 | Claude → ChatGPT review → User | review |

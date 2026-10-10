@@ -1,19 +1,22 @@
 # Current App Store Listing Audit
 
-**Snapshot date:** 2026-10-10 (fetched ~08:40 UTC)
+**Snapshot date:** 2026-10-10, two capture passes:
+- **Pass 1** (~08:40 UTC): 16 storefronts, lookup API + product page.
+- **Pass 2 — reconciliation, [Task 005](../tasks/review/005-reconcile-listing-evidence.md)** (08:59–09:00 UTC): AU, US, GB, CA, NZ, IE, IN re-fetched; Terms and privacy URLs re-fetched. Apple responses were uncached at the edge (`x-cache: MISS`, `age: 0`), so these are current observations, not cached snapshots.
+
 **Captured by:** Claude Code (public sources only — no App Store Connect access)
-**Storefronts checked:** 16 English-speaking or English-served storefronts — see [§1a Regional listings](#1a-regional-listings--verified-public)
-**Status:** Public-listing portion complete. Keyword field, analytics, and in-app verification still require the user (see [Task 001](../tasks/in-progress/001-aso-baseline-audit.md)).
+**Storefronts checked:** 16 in pass 1; 7 re-checked in pass 2. The pass column in [§1a](#1a-regional-listings--verified-public) shows which.
+**Status:** Public-listing portion complete and reconciled (see [§8](#8-reconciliation-log--task-005-2026-10-10)). Keyword field, analytics, and in-app verification still require the user (see [Task 001](../tasks/in-progress/001-aso-baseline-audit.md)).
 
 > Labels used: **Verified (public)** = observed directly on a public Apple/developer page on the snapshot date. **Listing claim** = the developer's own marketing statement; not yet verified in the build. **Hypothesis** = Claude's interpretation, untested. **Unknown** = not observable without the user.
 
 ## Sources
 | ID | URL | Publisher | Accessed | What it establishes | Limitations |
 |---|---|---|---|---|---|
-| S1 | https://itunes.apple.com/lookup?id=6761047973&country=au (repeated per storefront code in §1a) | Apple (iTunes Search API) | 2026-10-10 | Name, seller, bundle ID, version, dates, genres, price, languages, rating counts, description, screenshot URLs | Does not expose subtitle, keyword field, IAP prices, privacy label |
-| S2 | https://apps.apple.com/au/app/dues-bill-tracker-reminder/id6761047973 (and `https://apps.apple.com/<cc>/app/id6761047973` per storefront in §1a) | Apple | 2026-10-10 | Subtitle, IAP list and local prices, version history, App Privacy label, accessibility declaration, "You Might Also Like" | Web page; Apple may personalise or change it at any time |
-| S3 | https://easy-bills.netlify.app/ | Developer website | 2026-10-10 | Privacy policy content (this URL is both "Developer Website" and "Privacy Policy" in the listing) | Point-in-time |
-| S4 | https://easy-bills.netlify.app/terms | Developer website | 2026-10-10 | Returns HTTP 404 "Page not found" | Point-in-time; may be a deploy issue |
+| S1 | https://itunes.apple.com/lookup?id=6761047973&country=au — and the same URL with `country=us`, `gb`, `ca`, `nz`, `ie`, `in`, `sg`, `za`, `ph`, `my`, `ng`, `ke`, `pk`, `ae`, `hk` | Apple (iTunes Search API) | 2026-10-10 pass 1 (all); pass 2 08:59 UTC (au, us, gb, ca, nz, ie, in) — all HTTP 200 | Name, seller, bundle ID, version, dates, genres, price, languages, rating counts, description, screenshot URLs | Does not expose subtitle, keyword field, IAP prices, privacy label |
+| S2 | https://apps.apple.com/au/app/dues-bill-tracker-reminder/id6761047973 · https://apps.apple.com/us/app/dues-bill-tracker-reminder/id6761047973 · same path for `gb`, `ca`, `nz`, `ie`, `in` (pass 2); `https://apps.apple.com/<cc>/app/id6761047973` for the other storefronts (pass 1 only) | Apple | 2026-10-10 pass 1; pass 2 08:59 UTC — all HTTP 200, uncached | Subtitle, IAP list and local prices, version history, App Privacy label, accessibility declaration, "You Might Also Like" | Web page; Apple may personalise or change it at any time |
+| S3 | https://easy-bills.netlify.app/ | Developer website | 2026-10-10 pass 1; pass 2 09:00 UTC — HTTP 200 | Privacy policy content (this URL is both "Developer Website" and "Privacy Policy" in the listing) | Point-in-time |
+| S4 | https://easy-bills.netlify.app/terms | Developer website | 2026-10-10 pass 1 and pass 2 (08:59 UTC) | Returned **HTTP 404** "Page not found" both times | Point-in-time; availability may change |
 | S5 | https://developer.apple.com/help/app-store-connect/reference/app-information/app-information | Apple Developer | 2026-10-10 | Name ≤ 30 chars; subtitle ≤ 30 chars; privacy policy URL required | — |
 | S6 | https://developer.apple.com/help/app-store-connect/reference/app-information/platform-version-information | Apple Developer | 2026-10-10 | Promotional text ≤ 170 chars; description ≤ 4000 chars; keywords ≤ 100 bytes, no app/company names, don't duplicate name | — |
 | S7 | https://developer.apple.com/help/app-store-connect/reference/app-information/screenshot-specifications | Apple Developer | 2026-10-10 | 1–10 screenshots per device size | — |
@@ -25,18 +28,18 @@ Values below are shared by all storefronts checked **except where §1a shows a r
 | Field | Value | Length / limit | Source |
 |---|---|---|---|
 | App name | Dues: Bill Tracker & Reminder | 29 / 30 | S1, S5 |
-| Subtitle | **Varies by region** — "Split Bills & Track Payments" (AU, GB, CA, NZ, IE, IN and others) / "Bill Payment Manager & Budget" (US). See §1a. | 28 / 30 and 29 / 30 | S2, S5 |
+| Subtitle | **Differs by storefront** — "Bill Payment Manager & Budget" (US) / "Split Bills & Track Payments" (every other storefront checked). Seen in both passes. See §1a. | 29 / 30 and 28 / 30 | S2, S5 |
 | Seller / developer | Pawan Kumar (developer ID 1633039939) | — | S1 |
 | Bundle ID | `com.xx.easybills` | — | S1 |
 | Primary / secondary category | Finance / Utilities | — | S1 |
 | Price | Free with in-app purchases | — | S1, S2 |
-| Current version | 1.2.0, released 2026-09-28 | — | S1 |
+| Current version | 1.2.0, `currentVersionReleaseDate` 2026-09-28T09:56:15Z | — | S1 (pass 2: AU, US, GB, CA, NZ, IE, IN) |
 | First release | 1.0 on 2026-04-22 | — | S1 |
 | Minimum OS | iOS/iPadOS 17.0 | — | S2 |
-| Size | 23.2 MB | — | S2 |
+| Size | 23.2 MB (page); 23,203,840 bytes (lookup) | — | S1, S2 (pass 2: 7 storefronts) |
 | Languages | English only | — | S1 |
-| Age rating | 4+ | — | S1 |
-| Description | 3,216 characters (copy in S1) | 3216 / 4000 | S1, S6 |
+| Age rating | 4+ | — | S1 `contentAdvisoryRating`; S2 (pass 2: 7 storefronts) |
+| Description | 3,216 characters (copy in S1); identical hash in all 16 storefronts | 3216 / 4000 | S1, S6 |
 | Promotional text | None observed | 0 / 170 | S2 |
 | Keyword field | **Unknown** — not public; may differ per localization | ≤ 100 bytes each | needs App Store Connect |
 | Accessibility label | "The developer has not yet indicated which accessibility features this app supports." | — | S2 |
@@ -56,42 +59,51 @@ Other storefronts' prices: see §1a. Free-trial terms and the free-plan bill lim
 | Storefront | Ratings | Average |
 |---|---:|---:|
 | Australia | 3 | 5.0 |
+| India | 4 | 5.0 |
 | United States | 0 | — |
 | United Kingdom | 0 | — |
+
+The counts come from S1 `userRatingCount`, and the page matched in pass 2. Every other storefront checked had 0 ratings (§1a).
 
 Too few ratings to draw any conclusion. Written review text was not captured.
 
 ### Version history — Verified (public)
+Sources: S2 "Version History", and S1 for the 1.0 and 1.2.0 dates. The page shows only day and month for older versions ("23 Apr", "7 May"). The year 2026 is **inferred** from S1 `releaseDate` 2026-04-22.
 - **1.0** (2026-04-22) — initial release.
 - **1.0.1** (2026-04-23) — dark mode, iOS 17 support, "fresh new app icon and name".
 - **1.1.0** (2026-05-07) — voice entry, split bills, Family Plan tier, widgets, real-time sync, insights, notification preferences, Hindi voice recognition.
 - **1.2.0** (2026-09-28) — Family Plan bill sharing live in real time; leave/remove from shared bill.
 
 ## 1a. Regional listings — Verified (public)
-Checked 2026-10-10 via S1 lookup and S2 page for each storefront code. Text was compared field by field (description and screenshot URLs compared by hash).
+Checked 2026-10-10 via S1 lookup and S2 page for each storefront code. Pass 1 compared description, release notes and screenshot URLs by hash for all 16 storefronts. Pass 1 diffed the full page text against GB only for US, AU, CA, IN and NZ. Pass 2 re-extracted the subtitle, ratings, IAP prices and privacy label for the 7 storefronts marked "1+2".
+
+**Caching caveat:** Apple pages can update at different times. The US subtitle difference appeared in both passes on uncached responses, which is consistent with a separate US localization. That is still an inference: the cause is **NEEDS CONFIRMATION** from App Store Connect.
 
 **What differs by region (observable):**
-| Storefront | Subtitle shown | Ratings (count / avg) | Monthly | Yearly | Family Monthly | Family Annual |
-|---|---|---|---|---|---|---|
-| United States (`us`) | **Bill Payment Manager & Budget** | 0 | US$4.99 | US$39.99 | US$7.99 | US$59.99 |
-| United Kingdom (`gb`) | Split Bills & Track Payments | 0 | £4.99 | £39.99 | £7.99 | £59.99 |
-| Australia (`au`) | Split Bills & Track Payments | 3 / 5.0 | A$7.99 | A$59.99 | A$12.99 | A$99.99 |
-| Canada (`ca`) | Split Bills & Track Payments | 0 | C$6.99 | C$49.99 | C$9.99 | C$79.99 |
-| New Zealand (`nz`) | Split Bills & Track Payments | 0 | NZ$9.99 | NZ$69.99 | NZ$14.99 | NZ$99.99 |
-| Ireland (`ie`) | Split Bills & Track Payments | 0 | €5.99 | €44.99 | €8.99 | €69.99 |
-| India (`in`) | Split Bills & Track Payments | 4 / 5.0 (3 written reviews visible) | ₹499 | ₹3,999 | ₹799 | ₹5,900 |
-| Singapore (`sg`) | Split Bills & Track Payments | 0 | S$6.98 | S$59.98 | S$9.98 | S$89.98 |
-| South Africa (`za`) | Split Bills & Track Payments | 0 | R99.99 | R799.99 | R149.99 | R1,199.99 |
-| Philippines (`ph`) | Split Bills & Track Payments | 0 | ₱299 | ₱2,490 | ₱499 | ₱3,990 |
-| Malaysia (`my`) | Split Bills & Track Payments | 0 | RM22.90 | RM199.90 | RM39.90 | RM299.90 |
-| Nigeria (`ng`) | Split Bills & Track Payments | 0 | ₦7,900 | ₦69,900 | ₦12,900 | ₦99,900 |
-| Kenya (`ke`) | Split Bills & Track Payments | 0 | US$5.99 | US$49.99 | US$9.99 | US$69.99 |
-| Pakistan (`pk`) | Split Bills & Track Payments | 0 | Rs1,300 | Rs9,900 | Rs2,200 | Rs14,900 |
-| UAE (`ae`) | Split Bills & Track Payments | 0 | AED19.99 | AED149.99 | AED29.99 | AED229.99 |
+| Storefront | Pass | Subtitle shown | Ratings (count / avg) | Monthly | Yearly | Family Monthly | Family Annual |
+|---|---|---|---|---|---|---|---|
+| United States (`us`) | 1+2 | **Bill Payment Manager & Budget** | 0 | US$4.99 | US$39.99 | US$7.99 | US$59.99 |
+| United Kingdom (`gb`) | 1+2 | Split Bills & Track Payments | 0 | £4.99 | £39.99 | £7.99 | £59.99 |
+| Australia (`au`) | 1+2 | Split Bills & Track Payments | 3 / 5.0 | A$7.99 | A$59.99 | A$12.99 | A$99.99 |
+| Canada (`ca`) | 1+2 | Split Bills & Track Payments | 0 | C$6.99 | C$49.99 | C$9.99 | C$79.99 |
+| New Zealand (`nz`) | 1+2 | Split Bills & Track Payments | 0 | NZ$9.99 | NZ$69.99 | NZ$14.99 | NZ$99.99 |
+| Ireland (`ie`) | 1+2 | Split Bills & Track Payments | 0 | €5.99 | €44.99 | €8.99 | €69.99 |
+| India (`in`) | 1+2 | Split Bills & Track Payments | 4 / 5.0 (written reviews visible; not quoted) | ₹499 | ₹3,999 | ₹799 | ₹5,900 |
+| Singapore (`sg`) | 1 | Split Bills & Track Payments | 0 | S$6.98 | S$59.98 | S$9.98 | S$89.98 |
+| South Africa (`za`) | 1 | Split Bills & Track Payments | 0 | R99.99 | R799.99 | R149.99 | R1,199.99 |
+| Philippines (`ph`) | 1 | Split Bills & Track Payments | 0 | ₱299 | ₱2,490 | ₱499 | ₱3,990 |
+| Malaysia (`my`) | 1 | Split Bills & Track Payments | 0 | RM22.90 | RM199.90 | RM39.90 | RM299.90 |
+| Nigeria (`ng`) | 1 | Split Bills & Track Payments | 0 | ₦7,900 | ₦69,900 | ₦12,900 | ₦99,900 |
+| Kenya (`ke`) | 1 | Split Bills & Track Payments | 0 | US$5.99 | US$49.99 | US$9.99 | US$69.99 |
+| Pakistan (`pk`) | 1 | Split Bills & Track Payments | 0 | Rs1,300 | Rs9,900 | Rs2,200 | Rs14,900 |
+| UAE (`ae`) | 1 | Split Bills & Track Payments | 0 | AED19.99 | AED149.99 | AED29.99 | AED229.99 |
 
 Hong Kong (`hk`) was also fetched; its page rendered in Chinese and IAP prices could not be parsed, so it is excluded.
 
-**What is identical across all storefronts checked:** app name, description (3,216 chars, same hash), "What's New" text, the four iPhone screenshots (same image URLs), version, privacy label, Terms/Privacy links.
+**What is identical:**
+- **All 16 storefronts:** app name, description (3,216 chars, same hash), "What's New" text, the four iPhone screenshot URLs, version, and the Terms/Privacy URLs inside the description. All from S1.
+- **The 7 storefronts in pass 2:** App Privacy label data types and purposes, the Privacy Policy link target, age rating and size.
+- **Not compared:** the privacy label for the 8 pass-1-only storefronts.
 
 **Not observable — needs the user (App Store Connect → App Information / version page):**
 - Which English localizations exist (en-US, en-GB, en-AU, en-CA) and which storefronts fall back to which one. The US subtitle proves at least one separate localization exists; the mapping for other storefronts is **NEEDS CONFIRMATION**.
@@ -132,18 +144,32 @@ Source: S1/S2. These are the developer's statements. Marketing copy may reuse th
 |---|---|---|
 | 1 | Dashboard: total due, upcoming, filters, bill list | No caption/headline. Visible bills show "270 days overdue", "180 days overdue", "120 days overdue" in red. Page title renders faintly. |
 | 2 | Insights (week view) | No caption. Figures use lakh-style grouping with `$` (e.g. `$8,77,297.49`, `$10,00,000`) and very large sample amounts. Chart trends sharply downward. |
-| 3 | Settings: profile, bill reminders toggle, reminder time, currency | No caption. **Appears to display a real email address and "Premium Member" badge.** The address is intentionally not reproduced here. |
+| 3 | Settings: profile, bill reminders toggle, reminder time, currency | No caption. **Displays an email-format address** in the profile area, with a "Premium Member" badge. Whether it is a real person's address is **Unknown (NEEDS CONFIRMATION from the user)**. It cannot be determined from the image, and it is intentionally not reproduced here. |
 | 4 | Add Bill: title, amount, category, due-date calendar | No caption. |
 
-None of the four screenshots shows the subtitle's lead feature (split bills) or the 1.1.0/1.2.0 features (voice entry, Family Plan sharing, widgets). iPad screenshots not yet reviewed.
+Screenshot image URLs were unchanged between pass 1 and pass 2 (S1). None of the four screenshots shows the subtitle's lead feature (split bills) or the 1.1.0/1.2.0 features (voice entry, Family Plan sharing, widgets). iPad screenshots not yet reviewed.
 
 ## 4. Privacy and legal links — Verified (public)
-- Listing links Privacy Policy and Developer Website to the same URL (S3).
-- S3 is titled **"Privacy Policy | BillFlow"**, last updated **2026-03-22** (before 1.0 shipped). It lists email, bill details, and preferences; third parties Firebase, Apple Sign In, Google Sign In.
-- The App Privacy label (S2) declares data **linked to you** across: purchases, financial info, coarse location, contact info (email, name, phone number), contacts, user content (photos/videos, other), identifiers (user ID, device ID), usage data, diagnostics; including an **Analytics** purpose. No "Data Used to Track You" section was observed.
-- Terms of Use URL in the description (S4) returns **HTTP 404**.
+- **Links:** the listing's Privacy Policy link and Developer Website both point to `https://easy-bills.netlify.app/`. This is the `href` in S2, pass 2, for all 7 storefronts.
+- **Privacy policy (S3, pass 2, 09:00 UTC):**
+  - Titled **"Privacy Policy | BillFlow"**, "Last Updated: March 22, 2026". That is a month before 1.0 shipped on 2026-04-22.
+  - About 1,660 characters of text.
+  - Lists email, bill details and app preferences. Names Firebase, Apple Sign In and Google Sign In as third parties.
+  - A text search found **no** mention of "Dues", phone, location, photo, voice/speech, analytics, crash, purchase, split, or family. Its "contact" matches are a "Contact Us" heading, not contacts data.
+- **App Privacy label (S2, pass 2, 08:59 UTC):**
+  - Present in AU and US, and identical in the other 5 storefronts re-checked. Apple's page states it is the developer's declaration and "has not been verified by Apple".
+  - Only a **"Data Linked to You"** section appears. There is no "Data Used to Track You" or "Data Not Linked to You" section.
+  - Data types, by purpose, as shown:
 
-**Observation:** the privacy policy does not appear to mention several declared data types (e.g. contacts, phone number, location, photos). Guideline 5.1.1(i) (S8) requires the policy to identify all data collected and its uses. Whether this is non-compliant is a judgement for the user — Claude is not giving legal advice.
+  | Purpose | Data category → type |
+  |---|---|
+  | Analytics | Location → Coarse Location · Identifiers → User ID, Device ID · Usage Data → Product Interaction |
+  | App Functionality | Purchases → Purchase History · Financial Info → Other Financial Info · Contact Info → Email Address, Name, Phone Number · Contacts → Contacts · User Content → Photos or Videos, Other User Content · Identifiers → User ID · Diagnostics → Crash Data |
+
+  - The label shows what the developer **declared**. It does not prove the app's actual data flows.
+- **Terms of Use:** the URL in the description (S4) returned **HTTP 404** in pass 1 and again at 08:59 UTC in pass 2.
+
+**Observation:** the policy text does not mention several data types the label declares, such as phone number, contacts, coarse location, and photos or videos. Guideline 5.1.1(i) (S8) requires the policy to identify all data collected and its uses. Whether this is non-compliant is a judgement for the user — Claude is not giving legal advice.
 
 ## 5. Store context — Verified (public)
 "You Might Also Like" on the AU page (S2), 2026-10-10. This is Apple's recommendation list, **not** a measure of search competition:
@@ -155,9 +181,9 @@ Priorities are Claude's recommendation; effort is a rough estimate; none of thes
 
 | ID | Finding (evidence) | Type | Recommendation | Priority | Owner |
 |---|---|---|---|---|---|
-| L1 | Terms of Use link 404 (S4) | Verified | Restore/publish Terms page. Check Schedule 2 requirements. | P0 | User |
-| L2 | Privacy policy branded "BillFlow", dated before launch, narrower than privacy label (S2, S3) | Verified + judgement | Update policy to match current app and label; give it its own URL. | P0 | User |
-| L3 | Screenshot 3 shows an apparent real email address (S2) | Verified | Replace with demo account data. | P0 | User |
+| L1 | Terms of Use link HTTP 404, observed in passes 1 and 2 on 2026-10-10 (S4) | Verified | Restore/publish Terms page. Check Schedule 2 requirements. | P0 | User |
+| L2 | Privacy policy branded "BillFlow", dated before launch; its text omits several data types the App Privacy label declares (§4) | Verified (policy text and declared label, pass 2); compliance is the user's judgement | Update policy to match current app and label; give it its own URL. | P0 | User |
+| L3 | Screenshot 3 shows an email-format address (S2); whether it is real is Unknown | Verified observation; real/not real **Unknown** | Replace with demo account data. | P0 | User |
 | L4 | Description section "NEW IN VERSION 1.1.0" is stale (S1) | Verified | Refresh in next metadata update. | P1 | Claude drafts, user approves |
 | L5 | Screenshots have no captions and do not show split bills / voice / widgets / Family Plan | Verified observation; impact is a **hypothesis** | Draft a captioned screenshot narrative using real screens. | P1 | Claude drafts |
 | L6 | Screenshots 1–2 lead with long-overdue bills, lakh grouping, very large sums | Verified observation; impact is a **hypothesis** | Use realistic demo data in the target locale's format. | P1 | User captures; Claude briefs |
@@ -175,3 +201,21 @@ Priorities are Claude's recommendation; effort is a rough estimate; none of thes
 4. Is "works offline — full functionality" accurate with sign-in and sync?
 5. Which third-party SDKs ship in 1.2.0 (analytics, crash reporting)? Needed to verify "no third-party tracking".
 6. Is the email in screenshot 3 a real person's address?
+7. Does the App Privacy label accurately reflect 1.2.0's actual data practices and SDKs? (The label shown is your own declaration; Claude can't verify data flows.)
+
+## 8. Reconciliation log — Task 005 (2026-10-10)
+Each material claim from pass 1 was re-checked against a current source in pass 2.
+
+| Claim (pass 1) | Pass 2 source and time | Result | Change made |
+|---|---|---|---|
+| App Privacy label declares linked data across many categories | S2 AU and US, 08:59 UTC, uncached; also GB, CA, NZ, IE, IN | **Confirmed.** All listed types present under the Analytics and App Functionality purposes | Rewrote §4 as a per-purpose table. Added "developer-declared, not verified by Apple" |
+| US subtitle differs from other storefronts | S2 US vs AU/GB/CA/NZ/IE/IN, 08:59 UTC | **Confirmed** (US: "Bill Payment Manager & Budget") | Added a caching caveat. The cause stays NEEDS CONFIRMATION |
+| IAP prices per storefront | S2, 7 storefronts | **Confirmed**, unchanged | Added a pass column. 8 storefronts are marked pass 1 only |
+| Version 1.2.0, 2026-09-28; age 4+; size 23.2 MB; English only; Finance/Utilities | S1 and S2, 7 storefronts | **Confirmed** | Added source detail |
+| Ratings: AU 3, IN 4, others 0 | S1 and S2, 7 storefronts | **Confirmed** | Added India to the §1 ratings table |
+| Terms URL returns 404 | S4, 08:59 UTC | **Confirmed**, HTTP 404 | Added observation dates |
+| Privacy policy titled "BillFlow", dated 2026-03-22 | S3, 09:00 UTC | **Confirmed** | Added the text-search results |
+| Screenshot 3 shows "a real email address" | S1 screenshot URLs unchanged | **Overstated.** An email-format string is visible, but whether it is real can't be known | Relabelled as Unknown |
+| "Identical across all storefronts" included the privacy label | Pass 1 method review | **Overstated.** The label was compared only on pages that were diffed | Scoped each "identical" statement to the storefronts actually compared |
+| Version history dates with years | S2 shows day and month only | **Partly inferred** | Labelled the year as inferred |
+| Feature claims | — | Still **listing claims**, not verified in the build | No change |

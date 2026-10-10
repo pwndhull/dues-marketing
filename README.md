@@ -7,7 +7,12 @@ Increase qualified App Store impressions, product-page conversion, downloads, an
 
 ## Current status (2026-10-10)
 - Public listing audited in 16 English-served storefronts → [`aso/current-listing-audit.md`](aso/current-listing-audit.md). **The listing differs by region** (US subtitle "Bill Payment Manager & Budget" vs "Split Bills & Track Payments" elsewhere; prices per storefront).
-- Live trust issues found: Terms of Use link 404, privacy policy branded "BillFlow", an apparent real email in a screenshot → [Task 002](tasks/inbox/002-listing-trust-and-compliance-fixes.md).
+- Live trust issues found and re-confirmed on 2026-10-10 ([Task 005](tasks/review/005-reconcile-listing-evidence.md)):
+  - the Terms of Use link returns HTTP 404;
+  - the privacy policy is branded "BillFlow" and omits data types the App Privacy label declares;
+  - a screenshot shows an email-format address (whether it is real is unknown).
+
+  See [Task 002](tasks/inbox/002-listing-trust-and-compliance-fixes.md).
 - Performance baseline: **no data yet** — waiting for App Store Connect exports → [Task 001](tasks/in-progress/001-aso-baseline-audit.md).
 - Current priorities: [`strategy/30-day-plan.md`](strategy/30-day-plan.md). Latest session handoff: [`docs/handoff.md`](docs/handoff.md).
 
