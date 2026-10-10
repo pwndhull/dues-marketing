@@ -1,105 +1,119 @@
 # Session Handoff
 
-Updated at the end of every session (see [`CLAUDE.md`](../CLAUDE.md#finish-every-session)). This file holds the **latest** session; earlier versions are in Git history. The bootstrap session's handoff is at commit `82a306c`.
+Updated at the end of every session (see [`CLAUDE.md`](../CLAUDE.md#finish-every-session)). This file holds the **latest** session; earlier versions are in Git history: bootstrap @ `82a306c`, Task 005 @ `ed1e080`.
 
 ## 1. Session
-- **Date:** 2026-10-10 (work 08:59–~09:15 UTC)
+- **Date:** 2026-10-10 (about 09:05–09:30 UTC)
 - **Agent:** Claude Code (cloud session)
 - **Branch:** `claude/zen-turing-jrudn0` · PR [pwndhull/dues-marketing#1](https://github.com/pwndhull/dues-marketing/pull/1) (draft)
-- **Objective:** Task 005, provided by the user — reconcile `aso/current-listing-audit.md` against current Apple and developer sources before the bootstrap is accepted.
-- **Review status:** No one has reviewed this work yet — not ChatGPT, not the user. No review is recorded in the repo or on the PR.
+- **Objective:** Task 006 — the user asked Claude to check the "easy bills" app repository, which holds the real app code. Goal: use it to verify listing claims and resolve open questions.
+- **Review status:** No one has reviewed this work yet (not ChatGPT, not the user).
 
 ## 2. Work completed
 | SHA | Summary |
 |---|---|
-| `925363d` | Listing audit reconciled against fresh sources. Dependent wording corrected in README and Tasks 000/002/004. Task 005 added in `tasks/review/`. Task index updated |
+| `76b2919` | `aso/feature-verification.md` (new) holds claim-by-claim code evidence. Listing audit updated: §2 statuses, L1/L3/L4, §7 answers, new §9 with the pending 2.0 per-locale listing. Keyword table split into live and pending rows |
+| `7726bfd` | Decision 0003 proposed. `CLAUDE.md` and the collaboration protocol now have rules for the app repos. Tasks 001–004 updated, Task 006 added in review. Plan, positioning, market research, experiment backlog and README updated |
 | *(this commit)* | This handoff |
 
-**Outcome:** every pass-1 finding was confirmed by an uncached re-fetch; none was reversed. Corrections:
-- **App Privacy label:** the claim is supported. The AU and US pages, fetched at 08:59 UTC with `x-cache: MISS`, list linked data under the Analytics and App Functionality purposes. It is now recorded as a per-purpose table and labelled developer-declared, not verified by Apple.
-- **Screenshot 3:** "real email address" overstated what can be known. It is now "email-format address; real or not is Unknown".
-- **"Identical across all storefronts":** this overstated the comparison. Each statement is now scoped to the storefronts actually compared, and a pass column shows which.
-- **Version-history years:** the page shows day and month only, so the years are now labelled inferred.
-- **US subtitle:** seen in both passes. A caching caveat was added, and the cause stays NEEDS CONFIRMATION.
+**Repos read (read-only; nothing changed or pushed there):**
+- `pwndhull/Easy-bills-ios` @ `f676e19` (`main`), plus the estimated 1.2.0 commit `4c2f062`
+- `pwndhull/Easy-bills-web` @ `071c199`
+
+**Key results:**
+- **Contradicted by code:**
+  - "150+ currencies": the code has 20.
+  - The listed categories (Utilities, Rent, Insurance, Subscriptions, Loans): the code has Entertainment, Utilities, Housing, Food, Transportation, Healthcare, Lifestyle, Tech, Other.
+  - "Works offline": 1.2.0 uses a memory-only cache.
+- **Ambiguous:** "No third-party tracking". Firebase Analytics and Crashlytics are linked, and there is no ATT prompt.
+- **Supported by code:** voice entry (Hindi needs confirming), split bills with push, Family Plan (5 members + owner), widgets with quick-add, insights, dark mode, no ads, and a free plan of 5 active + 5 archived bills.
+- **2.0.0 is waiting in App Store Connect** ("Prepare for Submission", per the app repo). It has 12 localized listings, and each English locale has its own subtitle and keywords (audit §9).
+- **Terms 404:** the Netlify site serves an old "BillFlow" deploy. The app links to Google Sites pages instead, and the `Easy-bills-web` pages aren't deployed on Netlify.
+- **Screenshot 3 email:** it matches a string in the app repo's history, so it's likely the owner's or a team account.
+- **The app repo has its own marketing plan** (`docs/PLAN.md`). It conflicts with this repo on targets, outreach, and an Apple Ads test (~$140 per country) above the AUD $100/month ceiling. Proposed decision 0003 needs your choice.
 
 ## 3. Files changed
+**Created:**
+- `aso/feature-verification.md`
+- `docs/decisions/0003-marketing-source-of-truth-across-repositories.md`
+- `tasks/review/006-reconcile-with-app-repositories.md`
+
 **Modified:**
-- `aso/current-listing-audit.md`: header, sources, §1, §1a, §3, §4, §6 L1–L3, §7, and the new §8
-- `README.md`: status bullets
-- `tasks/README.md`: index; next ID is 006
-- `tasks/inbox/002-listing-trust-and-compliance-fixes.md`
-- `tasks/inbox/004-screenshot-narrative-brief.md`
-- `tasks/review/000-repository-bootstrap.md`
-- `docs/handoff.md`
-
-**Created:** `tasks/review/005-reconcile-listing-evidence.md`
-
-**Not changed:** `strategy/30-day-plan.md`. The evidence didn't change priorities.
+- ASO: `aso/current-listing-audit.md`, `aso/keyword-research.md`
+- Instructions and logs: `CLAUDE.md`, `README.md`, `docs/collaboration-protocol.md`, `docs/decisions/README.md`, `docs/handoff.md`, `experiments/backlog.md`
+- Strategy: `strategy/30-day-plan.md`, `strategy/positioning.md`, `strategy/market-research.md`
+- Tasks: `tasks/README.md`, `tasks/in-progress/001-…`, `tasks/inbox/002-…`, `003-…`, `004-…`
 
 ## 4. Validation performed
 These checks were actually run:
-- **Sources:** re-fetched with curl at 08:59–09:00 UTC. That covers the lookup API and product pages for au, us, gb, ca, nz, ie and in (all HTTP 200), plus the developer homepage (200) and the Terms URL (404). Apple response headers were checked: `x-cache: MISS`, `age: 0`.
-- **Privacy label:** parsed from the HTML heading structure (h3/h4/li), not from flattened text. Compared across all 7 storefronts. CA differed only by non-breaking spaces.
-- **Field comparison:** subtitle, ratings, IAP prices, version, release date, age rating, size and privacy-link target were extracted for each storefront and compared with pass 1. All matched.
-- **Screenshot URLs:** compared between passes; unchanged.
-- **Links:** a script checked 119 relative Markdown links (0 broken) and 4 audit anchors referenced elsewhere (all resolve).
-- **`.gitignore`:** tested with `git check-ignore`. Raw analytics CSVs, `*.p12` and `AuthKey_*` are ignored. `content/calendar.csv` and `*-aggregate.csv` reports are not ignored, as intended.
-- **Sensitive data:** the tree was searched with an email-address regex and a credential-assignment regex. No real addresses or credentials were found. The only hits were the commit co-author address and a sentence in the old handoff describing the scan. The staged diff was checked before commit. Only `.gitkeep` is tracked in `analytics/imports/`.
+- **Code facts:** each one came from `git show` / `git grep` at a named commit (`4c2f062` or `main`). That covered:
+  - the currency enum count;
+  - the category and recurrence enums;
+  - `PremiumManager` limits;
+  - Firestore cache settings;
+  - linked SDK products in `project.pbxproj`;
+  - `NS*UsageDescription` keys;
+  - the speech recognizer locale;
+  - widget deep links;
+  - the in-app privacy and terms URLs.
+- **Live URLs:** fetched with curl at 09:06–09:08 UTC; the HTTP results are recorded in the files.
+- **Links:** 151 relative Markdown links resolve (0 broken). Every `current-listing-audit.md#…` anchor resolves.
+- **Sensitive data:** the tree was searched for email addresses, the developer-email fragment, personal names from the app repo docs, Google API-key patterns, and Apple team IDs. None were found.
+- **App repos:** `git status` is clean in both; nothing was modified.
 - **Not done:**
-  - SG, ZA, PH, MY, NG, KE, PK, AE and HK were not re-checked; the audit marks them "pass 1 only".
-  - The iPad screenshots were not reviewed.
-  - Schedule 2 of the Apple Developer Program License Agreement was not read.
-  - The repo has no test suite.
+  - No app build or run; this is code evidence only.
+  - The Google Sites policy text wasn't read (it renders client-side).
+  - The exact 1.2.0 build commit is unconfirmed.
+  - No full SDK privacy audit.
 
 ## 5. Outstanding issues, assumptions, blockers
-- **Blockers (unchanged):**
-  - No App Store Connect or analytics access.
-  - The per-localization keyword fields and the localization-to-storefront mapping are unknown.
-- **Live issues (Task 002, your action):**
-  - The Terms URL returns 404.
-  - The privacy policy is branded "BillFlow", dated 2026-03-22, and omits data types the label declares.
-  - Screenshot 3 shows an email-format address; whether it is real is unknown.
-  - The description has a stale "NEW IN VERSION 1.1.0" section.
+- **Blocker:** no App Store Connect data yet. The baseline must cover a period that ends **before** 2.0 is released.
+- **Needs your decision:**
+  - Decision 0003 (which repo owns the marketing plan) and the Apple Ads budget conflict.
+  - Decision 0002 (task lifecycle and per-localization ASO).
+  - Accepting Tasks 000, 005 and 006.
 - **Assumptions:**
-  - Public pages reflect the live listing as of the fetch time.
-  - The privacy label is your own declaration and does not prove actual data flows.
-- **Unknown:**
-  - whether the US subtitle comes from a separate en-US localization;
-  - whether the screenshot address is real;
-  - whether the privacy label is accurate for 1.2.0.
+  - 1.2.0 was built from `4c2f062`. This is inferred from the app repo's STATUS saying later commits weren't compiled until 29 Sept.
+  - App repo docs are your own statements and are treated as user-provided.
+- **Open questions:**
+  - Is the free trial live for 1.2.0 users?
+  - Why does the privacy label list location and photos/videos when the app doesn't request those permissions?
+  - Which website domain and policy URL is canonical?
+  - Hindi voice recognition at runtime.
+  - Is the screenshot 3 email your own account?
 
 ## 6. Next recommended task
-**Task 001 — ASO and performance baseline audit** ([file](../tasks/in-progress/001-aso-baseline-audit.md)). It is blocked until you provide:
-- aggregate App Store Connect exports by territory and source type ([instructions](../analytics/baseline.md#how-to-obtain-the-data));
-- the name, subtitle, keywords and promotional text for each localization;
-- confirmation of which listed features are live in 1.2.0.
+**Task 001 — pre-2.0 baseline** ([file](../tasks/in-progress/001-aso-baseline-audit.md)). Export App Store Connect aggregates by territory and by source type for a period ending before the 2.0 release date ([instructions](../analytics/baseline.md#how-to-obtain-the-data)). Also provide the live 1.2.0 keyword field(s).
 
 **Acceptance criteria:**
-- `analytics/reports/YYYY-MM-DD-baseline.md` exists with the required header.
+- `analytics/reports/YYYY-MM-DD-baseline.md` has the required header.
+- The period ends before the 2.0 release.
 - English storefronts are ranked by verified data.
-- The keyword fields table is filled.
-- No values are fabricated, and no raw exports are committed.
+- Nothing is fabricated, and no raw exports are committed.
 
-Task 002 (your actions) can run in parallel.
+In parallel, decision 0003 is yours to make.
 
 ## 7. Actions requiring explicit human approval
-No live action was taken this session. Waiting on you:
-- **Task 002 fixes:** the Terms page, privacy policy and URL, the screenshot, and the description edit. These are live changes, and only you can make them.
-- **Optional guard workflow:** proposed in the previous handoff, still not added. It would be a read-only GitHub Action on pull requests that blocks tracked raw exports and secret-like files.
-- **Decision 0002:** accept or amend it.
-- **Tasks 000 and 005:** accept them, which moves them to `tasks/done/`, and decide on PR #1.
+No live action was taken. These are yours:
+- **Decision 0003:** choose an option. Also decide on the Apple Ads test (~$140 per country): raise the AUD $100 ceiling for it, shrink it, or defer it.
+- **Releasing 2.0.0:** it's your call, but export the baseline first.
+- **Legal pages:** confirm the App Store Connect Privacy Policy URL. Decide whether to take down or redirect `easy-bills.netlify.app`.
+- **Privacy label:** review it against the SDKs and permissions.
+- **iPad screenshots:** upload the 13" set for 2.0.
+- **Outreach** in the app repo plan (emailing paying users, creators, communities) is yours to do. Under this repo's rules, Claude won't do any of it without explicit approval for that action.
+- **Guard workflow (optional):** a read-only GitHub check, still not added.
 
 ## 8. ChatGPT review prompt
 ```text
 You are reviewing the GitHub repository pwndhull/dues-marketing, branch claude/zen-turing-jrudn0 (PR #1).
-You cannot see Claude's conversation; rely only on the repository and the sources it cites.
-Read: docs/handoff.md, tasks/review/005-reconcile-listing-evidence.md, then aso/current-listing-audit.md (especially §1a, §4 and §8), then tasks/inbox/002-listing-trust-and-compliance-fixes.md.
+You cannot see Claude's conversation or the private app repositories; rely on what this repository records and cites.
+Read: docs/handoff.md, tasks/review/006-reconcile-with-app-repositories.md, aso/feature-verification.md, aso/current-listing-audit.md (sections 2, 6, 7, 9), docs/decisions/0003-marketing-source-of-truth-across-repositories.md.
 Check:
-1. For each row in §8 (reconciliation log), is the result supported by the cited source and access time? Open the cited Apple URLs yourself if you can, and note any differences with the time you checked.
-2. Is the per-purpose App Privacy table in §4 an accurate transcription of the Apple page?
-3. Is anything still stated as Verified that was only inferred, or checked in fewer storefronts than claimed?
-4. Are Task 002's findings worded proportionately (no legal conclusions, no claims about whether the screenshot email is real)?
-5. Should the 9 storefronts marked "pass 1 only" be re-checked before the bootstrap is accepted?
+1. Does feature-verification.md keep code evidence, user-provided app-repo statements, and runtime behaviour clearly separate? Flag any claim stated more strongly than its evidence.
+2. Is the reasoning for treating commit 4c2f062 as the 1.2.0 build sound, and is it labelled as an estimate everywhere it is used?
+3. Is decision 0003 a fair statement of the conflict, and are the options complete? Is the recommendation justified?
+4. Are tasks 001–004 re-prioritised sensibly given that 2.0.0 is pending (especially the pre-2.0 baseline)?
+5. Any privacy risk in what was copied from the app repositories?
 Label each point Verified / Hypothesis / Recommendation / Unknown. Do not invent data.
 Output: (a) blocking issues, (b) non-blocking suggestions, (c) questions for the user, (d) proposed task changes in the format of tasks/_template.md.
 ```
