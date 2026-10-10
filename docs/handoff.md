@@ -1,81 +1,105 @@
 # Session Handoff
 
-Updated at the end of every session (see [`CLAUDE.md`](../CLAUDE.md#finish-every-session)). This file holds the **latest** session; earlier versions are in Git history.
+Updated at the end of every session (see [`CLAUDE.md`](../CLAUDE.md#finish-every-session)). This file holds the **latest** session; earlier versions are in Git history. The bootstrap session's handoff is at commit `82a306c`.
 
 ## 1. Session
-- **Date:** 2026-10-10
+- **Date:** 2026-10-10 (work 08:59–~09:15 UTC)
 - **Agent:** Claude Code (cloud session)
-- **Branch:** `claude/zen-turing-jrudn0` (based on `main` @ `8d4f809`)
-- **Objective:** Audit the repository and bootstrap it into an evidence-driven marketing workspace shared by the user, Claude Code, and ChatGPT. Mid-session the user pointed out that the App Store listing is region-specific; the audit was extended to cover each English storefront.
-- **Review status:** Nobody — neither ChatGPT nor the user — has reviewed these changes yet.
+- **Branch:** `claude/zen-turing-jrudn0` · PR [pwndhull/dues-marketing#1](https://github.com/pwndhull/dues-marketing/pull/1) (draft)
+- **Objective:** Task 005, provided by the user — reconcile `aso/current-listing-audit.md` against current Apple and developer sources before the bootstrap is accepted.
+- **Review status:** No one has reviewed this work yet — not ChatGPT, not the user. No review is recorded in the repo or on the PR.
 
-## 2. Work completed (commits, oldest first)
+## 2. Work completed
 | SHA | Summary |
 |---|---|
-| `118cb56` | Public listing audit, 16 storefronts, incl. regional differences (`aso/current-listing-audit.md`, `aso/competitor-research.md`) |
-| `1ee5fcd` | Per-localization keyword research and listing-draft templates |
-| `77c6c4c` | Collaboration protocol, operating manual, decision index, decision 0002 (proposed) |
-| `3a8d245` | Task lifecycle + template; Task 001 restructured and moved to in-progress; Tasks 002–004 added |
-| `cfb4e0f` | Metric dictionary, baseline export instructions, `.gitignore` hardening |
-| `c11d578` | Positioning and 30-day plan updated; audience and market research added |
-| `b0da459` | Experiment backlog; calendar row for missing script 001 flagged |
-| `436244c` | README and CLAUDE.md rewritten; `docs/handoff.md` made mandatory |
-| `87730f4` | Issue templates (task, ChatGPT review) and PR template |
-| *(this commit)* | This handoff; Task 000 moved to `tasks/review/` |
+| `925363d` | Listing audit reconciled against fresh sources. Dependent wording corrected in README and Tasks 000/002/004. Task 005 added in `tasks/review/`. Task index updated |
+| *(this commit)* | This handoff |
+
+**Outcome:** every pass-1 finding was confirmed by an uncached re-fetch; none was reversed. Corrections:
+- **App Privacy label:** the claim is supported. The AU and US pages, fetched at 08:59 UTC with `x-cache: MISS`, list linked data under the Analytics and App Functionality purposes. It is now recorded as a per-purpose table and labelled developer-declared, not verified by Apple.
+- **Screenshot 3:** "real email address" overstated what can be known. It is now "email-format address; real or not is Unknown".
+- **"Identical across all storefronts":** this overstated the comparison. Each statement is now scoped to the storefronts actually compared, and a pass column shows which.
+- **Version-history years:** the page shows day and month only, so the years are now labelled inferred.
+- **US subtitle:** seen in both passes. A caching caveat was added, and the cause stays NEEDS CONFIRMATION.
 
 ## 3. Files changed
-**Created:** `aso/{current-listing-audit,keyword-research,competitor-research,listing-drafts}.md` · `analytics/metric-definitions.md` · `docs/{collaboration-protocol,operating-manual,handoff}.md` · `docs/decisions/{README,0002-collaboration-protocol-and-task-lifecycle}.md` · `experiments/backlog.md` · `strategy/{audience-research,market-research}.md` · `tasks/{README,_template}.md` · `tasks/review/000-repository-bootstrap.md` · `tasks/inbox/{002,003,004}-*.md` · `.github/ISSUE_TEMPLATE/{task,chatgpt-review}.md`, `config.yml` · `.github/pull_request_template.md` · `.gitkeep` in `tasks/review/`, `content/assets/`
-**Modified:** `README.md` · `CLAUDE.md` · `.gitignore` (append only) · `analytics/baseline.md` · `strategy/{positioning,30-day-plan}.md` · `content/calendar.csv` (row 1 status/note only)
-**Moved:** `tasks/inbox/001-aso-baseline-audit.md` → `tasks/in-progress/` (content restructured; original steps kept)
-**Unchanged (preserved):** decision 0001, `experiments/{active,results}.md`, content scripts 002/003, `.gitkeep` files.
-**Deleted:** nothing.
+**Modified:**
+- `aso/current-listing-audit.md`: header, sources, §1, §1a, §3, §4, §6 L1–L3, §7, and the new §8
+- `README.md`: status bullets
+- `tasks/README.md`: index; next ID is 006
+- `tasks/inbox/002-listing-trust-and-compliance-fixes.md`
+- `tasks/inbox/004-screenshot-narrative-brief.md`
+- `tasks/review/000-repository-bootstrap.md`
+- `docs/handoff.md`
+
+**Created:** `tasks/review/005-reconcile-listing-evidence.md`
+
+**Not changed:** `strategy/30-day-plan.md`. The evidence didn't change priorities.
 
 ## 4. Validation performed
 These checks were actually run:
-- Relative Markdown links checked with a script across all `.md` files: 0 broken after this commit (before it, only links to this file were missing).
-- `content/calendar.csv` parsed with Python's `csv` module: all rows have 10 columns.
-- `.gitignore` tested with `git check-ignore -v`: raw CSVs under `analytics/` ignored; `analytics/reports/*-aggregate.csv` and `content/calendar.csv` not ignored; `*.p12`, `AuthKey_*` ignored.
-- Whole tree grepped for email addresses and `key/secret/token/password =` patterns: none found (apart from the commit co-author address). Only `.gitkeep` is tracked in `analytics/imports/`.
-- Field lengths computed from source data: name 29/30, subtitles 28/30 and 29/30, description 3,216/4,000.
-- Listing facts were cross-checked between Apple's lookup API and the product page for each storefront. Descriptions and screenshot URLs were compared by hash.
-- **Not run:** there is no test suite or linter in this repo. The iPad screenshots were not reviewed. Hong Kong IAP prices could not be parsed.
+- **Sources:** re-fetched with curl at 08:59–09:00 UTC. That covers the lookup API and product pages for au, us, gb, ca, nz, ie and in (all HTTP 200), plus the developer homepage (200) and the Terms URL (404). Apple response headers were checked: `x-cache: MISS`, `age: 0`.
+- **Privacy label:** parsed from the HTML heading structure (h3/h4/li), not from flattened text. Compared across all 7 storefronts. CA differed only by non-breaking spaces.
+- **Field comparison:** subtitle, ratings, IAP prices, version, release date, age rating, size and privacy-link target were extracted for each storefront and compared with pass 1. All matched.
+- **Screenshot URLs:** compared between passes; unchanged.
+- **Links:** a script checked 119 relative Markdown links (0 broken) and 4 audit anchors referenced elsewhere (all resolve).
+- **`.gitignore`:** tested with `git check-ignore`. Raw analytics CSVs, `*.p12` and `AuthKey_*` are ignored. `content/calendar.csv` and `*-aggregate.csv` reports are not ignored, as intended.
+- **Sensitive data:** the tree was searched with an email-address regex and a credential-assignment regex. No real addresses or credentials were found. The only hits were the commit co-author address and a sentence in the old handoff describing the scan. The staged diff was checked before commit. Only `.gitkeep` is tracked in `analytics/imports/`.
+- **Not done:**
+  - SG, ZA, PH, MY, NG, KE, PK, AE and HK were not re-checked; the audit marks them "pass 1 only".
+  - The iPad screenshots were not reviewed.
+  - Schedule 2 of the Apple Developer Program License Agreement was not read.
+  - The repo has no test suite.
 
 ## 5. Outstanding issues, assumptions, blockers
-- **Blocker:** there are no analytics yet. Claude has no access to App Store Connect, subscription dashboards, Search Ads, social, or ads accounts.
-- **Blocker:** the keyword field for each localization, and which storefronts use which localization, are not public.
-- **Live issues (user-owned, Task 002):** the Terms of Use URL returns 404; the privacy policy is titled "BillFlow", is dated 2026-03-22, and appears narrower than the App Privacy label; screenshot 3 appears to show a real email address; the description contains a stale "NEW IN VERSION 1.1.0" section.
-- **Assumption:** facts from the public listing are as of 2026-10-10. Apple may change pages at any time.
-- **Assumption:** feature claims in the listing are the developer's own. None have been verified in the build.
-- **Unknown:** free-plan limits, trial terms, the "works offline" and "no third-party tracking" claims, and whether "BillFlow" was a former name.
-- Decision 0002 is *proposed* until the user accepts it.
+- **Blockers (unchanged):**
+  - No App Store Connect or analytics access.
+  - The per-localization keyword fields and the localization-to-storefront mapping are unknown.
+- **Live issues (Task 002, your action):**
+  - The Terms URL returns 404.
+  - The privacy policy is branded "BillFlow", dated 2026-03-22, and omits data types the label declares.
+  - Screenshot 3 shows an email-format address; whether it is real is unknown.
+  - The description has a stale "NEW IN VERSION 1.1.0" section.
+- **Assumptions:**
+  - Public pages reflect the live listing as of the fetch time.
+  - The privacy label is your own declaration and does not prove actual data flows.
+- **Unknown:**
+  - whether the US subtitle comes from a separate en-US localization;
+  - whether the screenshot address is real;
+  - whether the privacy label is accurate for 1.2.0.
 
 ## 6. Next recommended task
-**Task 001 — ASO and performance baseline audit** ([file](../tasks/in-progress/001-aso-baseline-audit.md)). It needs these inputs from the user:
-1. Aggregate App Store Connect exports (instructions: [`analytics/baseline.md`](../analytics/baseline.md#how-to-obtain-the-data)), by territory and by source type.
-2. For each English localization: name, subtitle, keyword field, and promotional text.
-3. Confirmation of which listed features are live in 1.2.0.
+**Task 001 — ASO and performance baseline audit** ([file](../tasks/in-progress/001-aso-baseline-audit.md)). It is blocked until you provide:
+- aggregate App Store Connect exports by territory and source type ([instructions](../analytics/baseline.md#how-to-obtain-the-data));
+- the name, subtitle, keywords and promotional text for each localization;
+- confirmation of which listed features are live in 1.2.0.
 
-**Acceptance criteria:** `analytics/reports/YYYY-MM-DD-baseline.md` exists with the required report header. English storefronts are ranked using verified data. The keyword fields table in `aso/keyword-research.md` is filled. No values are fabricated, and no raw exports are committed.
+**Acceptance criteria:**
+- `analytics/reports/YYYY-MM-DD-baseline.md` exists with the required header.
+- English storefronts are ranked by verified data.
+- The keyword fields table is filled.
+- No values are fabricated, and no raw exports are committed.
 
-Task 002 can run in parallel; it consists entirely of user actions.
+Task 002 (your actions) can run in parallel.
 
 ## 7. Actions requiring explicit human approval
-Nothing in this session required approval, and no live action was taken. Pending decisions:
-- Task 002 fixes (website, privacy policy URL, screenshot replacement, description edit) are **live changes**. Only the user can make them.
-- **Proposed, not added: minimal guard workflow.** A GitHub Action on `pull_request` with `permissions: contents: read`. It would fail if any file under `analytics/imports/` other than `.gitkeep` is tracked, or if the diff matches secret patterns such as `.p8` or `AuthKey_`. Cost: free on GitHub-hosted runners for normal usage. Security: read-only, no secrets, no publishing. Benefit: a second safety net beyond `.gitignore`. **Add it only if you approve.**
-- Accept or amend decision 0002.
+No live action was taken this session. Waiting on you:
+- **Task 002 fixes:** the Terms page, privacy policy and URL, the screenshot, and the description edit. These are live changes, and only you can make them.
+- **Optional guard workflow:** proposed in the previous handoff, still not added. It would be a read-only GitHub Action on pull requests that blocks tracked raw exports and secret-like files.
+- **Decision 0002:** accept or amend it.
+- **Tasks 000 and 005:** accept them, which moves them to `tasks/done/`, and decide on PR #1.
 
 ## 8. ChatGPT review prompt
 ```text
-You are reviewing the GitHub repository pwndhull/dues-marketing, branch claude/zen-turing-jrudn0 (see its open pull request).
-You cannot see Claude's conversation; rely only on the repository and sources it cites.
-Read in this order: README.md, CLAUDE.md, docs/handoff.md, docs/collaboration-protocol.md, aso/current-listing-audit.md, strategy/30-day-plan.md, tasks/README.md, then tasks/review/000-repository-bootstrap.md.
+You are reviewing the GitHub repository pwndhull/dues-marketing, branch claude/zen-turing-jrudn0 (PR #1).
+You cannot see Claude's conversation; rely only on the repository and the sources it cites.
+Read: docs/handoff.md, tasks/review/005-reconcile-listing-evidence.md, then aso/current-listing-audit.md (especially §1a, §4 and §8), then tasks/inbox/002-listing-trust-and-compliance-fixes.md.
 Check:
-1. Are the listing facts in aso/current-listing-audit.md (including the per-storefront table in section 1a) consistent with the cited Apple URLs? Flag anything stated as fact without a source.
-2. Are any claims, metrics, or features presented as verified without evidence?
-3. Do any files contradict each other (priorities, task status, product name, approval rules)?
-4. Are tasks 001–004 the right next steps and correctly prioritised? Is anything missing or speculative?
-5. Is there any privacy or security risk in the repository contents or .gitignore?
-Label each point Verified / Hypothesis / Recommendation / Unknown. Do not invent metrics or search volumes.
+1. For each row in §8 (reconciliation log), is the result supported by the cited source and access time? Open the cited Apple URLs yourself if you can, and note any differences with the time you checked.
+2. Is the per-purpose App Privacy table in §4 an accurate transcription of the Apple page?
+3. Is anything still stated as Verified that was only inferred, or checked in fewer storefronts than claimed?
+4. Are Task 002's findings worded proportionately (no legal conclusions, no claims about whether the screenshot email is real)?
+5. Should the 9 storefronts marked "pass 1 only" be re-checked before the bootstrap is accepted?
+Label each point Verified / Hypothesis / Recommendation / Unknown. Do not invent data.
 Output: (a) blocking issues, (b) non-blocking suggestions, (c) questions for the user, (d) proposed task changes in the format of tasks/_template.md.
 ```
