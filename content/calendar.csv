@@ -1,4 +1,4 @@
 date,channel,format,topic,hypothesis,asset_path,status,approval,metric,notes
-TBD,Short-form video,15-30s,Simple bill-organisation habit,Helpful educational content may attract relevant users,content/scripts/001-bill-checkup.md,Draft,Not approved,Views and profile/store clicks,Do not publish without approval
+TBD,Short-form video,15-30s,Simple bill-organisation habit,Helpful educational content may attract relevant users,content/scripts/001-bill-checkup.md,Idea,Not approved,Views and profile/store clicks,Script file not yet written (referenced path never existed - audit 2026-10-10); do not publish without approval
 TBD,Carousel,5 slides,Weekly bill check-up checklist,Saveable practical content may encourage discovery,content/scripts/002-weekly-checklist.md,Draft,Not approved,Saves and store clicks,Use only verified app UI/features
 TBD,Short-form video,15-30s,How to build a recurring-bill list,Demonstration content may match search intent,content/scripts/003-recurring-bill-list.md,Draft,Not approved,Completion and store clicks,Do not imply unsupported automation
