@@ -5,7 +5,7 @@
 | ID | 003 |
 | Priority | P1 |
 | Owner | Claude (research) · User (current keyword fields; optional Search Ads popularity lookups) · ChatGPT review |
-| Status | Ready once Task 001 provides current keyword fields and territory data |
+| Status | Blocked — waiting for the 2.0 release and a pre-2.0 baseline. Per-locale 2.0 keyword sets already exist in the app repo ([audit §9](../../aso/current-listing-audit.md#9-pending-200-listing--not-live)). This task becomes: collect dated search evidence for those sets after release, and propose changes only with evidence |
 | Opened | 2026-10-10 |
 | Approval gates | None — research only. Any paid ASO tool needs approval and counts toward the AUD $100/month ceiling. |
 

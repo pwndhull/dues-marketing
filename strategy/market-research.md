@@ -19,8 +19,11 @@ Source: [`aso/current-listing-audit.md` §1a](../aso/current-listing-audit.md#1a
 | United Kingdom | Large English storefront | same |
 | Australia | User's home currency (AUD budget); has ratings | same |
 | Canada | English + French storefront | same |
-| India | Most ratings; developer added Hindi voice recognition | same; note lower prices |
+| India | Most ratings; release notes claim Hindi voice recognition (recognizer locale is en-IN in code — NEEDS CONFIRMATION) | same; note lower prices |
 | NZ, IE, SG, ZA, others | Smaller English-speaking/served markets | same |
+
+## Market focus already chosen in the app repo (user-provided, not data-driven)
+`Easy-bills-ios/docs/PLAN.md` and `docs/strategy/ACQUISITION.md` (2026-10-05) target **AU, CA, UK and US** with country-specific features (tax-deadline templates; council tax for the UK). An **India-specific launch is parked** there, although India has the most public ratings (§ above). The 2.0 listing has 12 locales. This is the user's plan, not a data ranking. The method below still applies once App Store Connect territory data exists.
 
 ## Prioritisation method (once data exists)
 Rank by first-time downloads and conversion rate (with absolute counts), proceeds per download, and source type (search share). Don't rank by population or assumed market size alone.

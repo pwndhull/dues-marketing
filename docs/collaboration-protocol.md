@@ -20,6 +20,7 @@ GitHub is the only shared memory. Claude and ChatGPT **cannot message each other
 | Content drafts / approved | `content/scripts/`, `content/approved/` | |
 | Experiments | `experiments/` | backlog → active → results |
 | Decisions | `docs/decisions/` | Numbered, never rewritten — superseded instead |
+| App code, release docs, 2.0 listing text | `pwndhull/Easy-bills-ios` (read-only for marketing work) | Overlaps this repo; ownership pending [decision 0003](decisions/0003-marketing-source-of-truth-across-repositories.md) |
 
 If a fact is not in the repository or a cited source, do not assume the other model knows it. Conversational claims ("I think the app has X") are not evidence until recorded with a source.
 

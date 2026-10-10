@@ -22,6 +22,9 @@ Budget: AUD $100/month ceiling across all marketing. Prefer AUD $0 experiments.
 - **Approval:** not requested / requested YYYY-MM-DD / granted YYYY-MM-DD by user
 ```
 
+## Note: paid test planned in the app repo
+`pwndhull/Easy-bills-ios` `docs/strategy/ACQUISITION.md` §5 plans an Apple Ads test at "$10/day for 14 days = $140 per country", starting in Australia. **That exceeds the AUD $100/month ceiling.** It is not in this backlog, and it needs the user's explicit decision ([decision 0003](../docs/decisions/0003-marketing-source-of-truth-across-repositories.md)). If it is adopted, record it here with the full template, including the AUD cost.
+
 ## Ideas
 Each depends on the Task 001 baseline; none can be evaluated without it.
 

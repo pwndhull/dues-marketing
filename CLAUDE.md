@@ -17,6 +17,7 @@ Grow **Dues: Bill Tracker & Reminder** (iOS, App Store ID `6761047973`) — qual
 | Procedures | [`docs/operating-manual.md`](docs/operating-manual.md) |
 | Collaboration with ChatGPT | [`docs/collaboration-protocol.md`](docs/collaboration-protocol.md) |
 | Latest session handoff | [`docs/handoff.md`](docs/handoff.md) |
+| App code and release docs (read-only evidence) | `pwndhull/Easy-bills-ios`, `pwndhull/Easy-bills-web` — see below and [decision 0003](docs/decisions/0003-marketing-source-of-truth-across-repositories.md) |
 
 ## Start every session
 1. `git status`, current branch, `git log --oneline -10`. Never discard uncommitted changes you didn't make — ask.
@@ -34,6 +35,14 @@ Grow **Dues: Bill Tracker & Reminder** (iOS, App Store ID `6761047973`) — qual
 - Label statements: **Verified fact / User-provided / Hypothesis / Recommendation / Unknown (NEEDS CONFIRMATION)**.
 - Never invent features, integrations, pricing, privacy claims, testimonials, ratings, review quotes, downloads, revenue, conversion, rankings, search volume, keyword difficulty, competitor data, or experiment results. Correlation ≠ causation.
 - Use only verified features; don't infer from the category.
+
+## App repositories (read-only evidence)
+- `pwndhull/Easy-bills-ios` holds the app code, its own marketing plan (`docs/PLAN.md`, `docs/strategy/`), the 2.0 listing (`fastlane/metadata/`), and screenshot tooling. `pwndhull/Easy-bills-web` is a static site. Feature checks: [`aso/feature-verification.md`](aso/feature-verification.md).
+- Read only; never push to them from marketing work. Cite them as repo + path + commit SHA.
+- `main` is **not** the live build. Check what shipped (1.2.0 ≈ `4c2f062`, NEEDS CONFIRMATION) before treating a feature as live.
+- Code evidence is not runtime evidence. Docs written in the app repo are user-provided, not verified.
+- Never copy secrets, config files (e.g. `GoogleService-Info.plist`), personal emails, names, or user data from them.
+- Where the app repo plan conflicts with this repo's guardrails (budget, approvals, targets), flag it to the user; don't silently follow either.
 
 ## Keep docs current (same change as the work)
 Task file · any doc made stale (plan, positioning, listing audit, baseline) · decision record if the choice constrains future work · experiment files · README status if priorities changed.

@@ -6,11 +6,17 @@
 
 This file is the source of truth for **current priorities**. Task status lives in [`tasks/`](../tasks/README.md).
 
+## Update 2026-10-10 — app repositories
+- Version **2.0.0** is waiting in App Store Connect ("Prepare for Submission", per the app repo). It changes the listing in every English storefront. **Capture the pre-2.0 baseline before release** (Task 001). This is now the most time-sensitive item.
+- The app repo has its own 12-week marketing plan (`Easy-bills-ios/docs/PLAN.md`), which overlaps and partly conflicts with this plan: targets, an Apple Ads test above AUD $100, and outreach. Which plan governs is [decision 0003](../docs/decisions/0003-marketing-source-of-truth-across-repositories.md) (your call). Until then, this plan is not extended further, to avoid duplicating work.
+- Week 2 below ("Prepare ASO improvements") is largely already done in the app repo for 2.0 (per-locale metadata and screenshots). After release, this repo's role is to measure it against the baseline.
+
 ## Current priorities
 | # | Priority | Task | Owner | Blocked on |
 |---|---|---|---|---|
+| 0 | P0 | Decide [0003](../docs/decisions/0003-marketing-source-of-truth-across-repositories.md): which repo owns the marketing plan; Apple Ads budget conflict | User | — |
 | 1 | P0 | [002 Listing trust and compliance fixes](../tasks/inbox/002-listing-trust-and-compliance-fixes.md) — broken Terms link, privacy policy mismatch, personal data in screenshot | User (Claude drafts) | User decision |
-| 2 | P0 | [001 ASO and performance baseline](../tasks/in-progress/001-aso-baseline-audit.md) — public listing done; analytics + per-localization keywords pending | User exports → Claude | Exports |
+| 2 | P0 | [001 ASO and performance baseline](../tasks/in-progress/001-aso-baseline-audit.md) — public listing done; analytics + per-localization keywords pending. **Export before 2.0 is released** | User exports → Claude | Exports |
 | 3 | P1 | [003 Keyword research per localization](../tasks/inbox/003-keyword-research-per-localization.md) | Claude | 001 |
 | 4 | P1 | [004 Screenshot narrative brief](../tasks/inbox/004-screenshot-narrative-brief.md) | Claude → User | Feature confirmation |
 

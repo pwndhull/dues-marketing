@@ -58,5 +58,11 @@ Original steps (from the user's initial task) with progress:
 2. Exports listed in [`analytics/baseline.md` → How to obtain the data](../../analytics/baseline.md#how-to-obtain-the-data).
 3. Feature confirmations listed in audit §2 and §7.
 
+## Update 2026-10-10 — app repositories ([Task 006](../review/006-reconcile-with-app-repositories.md))
+- **Timing is now critical.** Version 2.0.0 is "Prepare for Submission" in App Store Connect (per the app repo's `docs/STATUS.md`, 2026-10-09). Its release changes app code, subtitle, keywords, description and screenshots in all English storefronts at once. The baseline export must cover a period **ending before the 2.0 release date**, or it stops being a clean pre-change baseline. The app repo's own `docs/PLAN.md` (week 1) also asks for this baseline.
+- Feature confirmation (open question 3) is now largely answered by code: see [`aso/feature-verification.md`](../../aso/feature-verification.md). Runtime checks are still open.
+- Live 1.2.0 keyword fields: still needed. The pending 2.0 fields are recorded in [audit §9](../../aso/current-listing-audit.md#9-pending-200-listing--not-live).
+- The app repo states "5–7 paying users" (`docs/strategy/ACQUISITION.md`, 2026-10-05). That is user-provided and not verified; it is **not** used as a baseline value.
+
 ## Next action
 **User:** provide items 1–2 above (paste aggregate numbers into a PR comment or drop CSVs into local `analytics/imports/` in a Claude session). **Claude** then writes the baseline report and updates this task.

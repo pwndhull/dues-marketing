@@ -5,7 +5,7 @@
 | ID | 004 |
 | Priority | P1 |
 | Owner | Claude (brief) · User (feature confirmation, capturing real screens, approval) |
-| Status | Ready — best done after Task 002 decisions and feature confirmation in Task 001 |
+| Status | **Largely superseded — user decision needed.** The app repo already has a captioned screenshot plan (`docs/APP-STORE-LISTING.md`, `docs/strategy/ACQUISITION.md`), a Debug screenshot mode with demo data, and per-region capture and framing scripts (`tools/aso/`). New iPhone screenshots for 2.0 are uploaded for 5 locales. What remains: iPad 13" screenshots, and a review of the 2.0 set once it is public. Propose closing this task or narrowing it to that review |
 | Opened | 2026-10-10 |
 | Approval gates | Uploading screenshots to App Store Connect is a live action — user only, with explicit approval. |
 

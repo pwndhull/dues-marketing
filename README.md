@@ -13,6 +13,9 @@ Increase qualified App Store impressions, product-page conversion, downloads, an
   - a screenshot shows an email-format address (whether it is real is unknown).
 
   See [Task 002](tasks/inbox/002-listing-trust-and-compliance-fixes.md).
+- Listing claims checked against the app code (`Easy-bills-ios`): several live claims are contradicted, including "150+ currencies" (the code has 20), the category list, and "works offline" → [`aso/feature-verification.md`](aso/feature-verification.md).
+- **Version 2.0.0 is waiting in App Store Connect** with a new per-locale listing ([audit §9](aso/current-listing-audit.md#9-pending-200-listing--not-live)). Capture the baseline **before** it is released.
+- The app repo has its own marketing plan, which overlaps this one. Which governs is [decision 0003](docs/decisions/0003-marketing-source-of-truth-across-repositories.md) (your call).
 - Performance baseline: **no data yet** — waiting for App Store Connect exports → [Task 001](tasks/in-progress/001-aso-baseline-audit.md).
 - Current priorities: [`strategy/30-day-plan.md`](strategy/30-day-plan.md). Latest session handoff: [`docs/handoff.md`](docs/handoff.md).
 

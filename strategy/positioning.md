@@ -11,7 +11,10 @@
 
 So the live listing currently carries **two positionings**: shared/split bills (most regions) and bill payment management/budget (US). Neither has been tested.
 
-## Feature basis (Listing claims — verify in build before use)
+## Feature basis (checked against code 2026-10-10 — see [`aso/feature-verification.md`](../aso/feature-verification.md))
+Supported by code in 1.2.0: bill tracking and reminders; weekly, fortnightly, monthly and yearly recurrence; voice entry; split bills; Family Plan (5 members + owner); widgets; Firestore sync; insights; dark mode; no ads; free plan with 5 active bills. **Contradicted:** "150+ currencies" (20), the listed category names, "works offline" (1.2.0). **Ambiguous:** "no third-party tracking" (Firebase Analytics and Crashlytics). Pending 2.0 positions each English locale on local bills (council tax, rego, hydro) with a "due dates & alerts" subtitle ([audit §9](../aso/current-listing-audit.md#9-pending-200-listing--not-live)).
+
+### Original note (2026-10-10, before the code check — superseded above)
 Bill tracking with due-date reminders and recurring bills · split bills with others · Family Plan (up to 5 members) · voice entry · Home/Lock Screen widgets · insights and CSV export · 150+ currencies · dark mode · no ads. Full list and status: audit §2. Free-plan limits and trial terms: **Unknown**.
 
 ## Positioning hypotheses to test

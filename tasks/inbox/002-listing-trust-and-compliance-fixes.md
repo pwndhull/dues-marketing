@@ -24,6 +24,13 @@ From [`aso/current-listing-audit.md`](../../aso/current-listing-audit.md). First
 | L4 Description says "NEW IN VERSION 1.1.0"; live is 1.2.0 | iTunes lookup description | Verified fact |
 | L10 "BillFlow" brand overlaps with another App Store app | AU "You Might Also Like" | Verified; history Unknown |
 
+## Update 2026-10-10 — app repositories ([Task 006](../review/006-reconcile-with-app-repositories.md))
+- **L1:** the app itself (1.2.0 and 2.0) links Terms and Privacy to Google Sites pages (HTTP 200; content not read). The live Netlify site serves an old "BillFlow" deploy, and the `Easy-bills-web` repo is **not** what is deployed there. The pending 2.0 description already uses the Google Sites URLs, so releasing 2.0 fixes the description link. The **Privacy Policy URL field** in App Store Connect still needs checking.
+- **L2:** the label's location and photos entries have no matching permission in code (only contacts, microphone and speech). Review whether the label is over-declared or whether an SDK collects these. The app repo's 2.0 notes say "privacy label published (13 data types, none for tracking)", which matches the 13 types observed live.
+- **L3:** the email likely belongs to the owner or a team account (it matches the app repo's history). The new 2.0 iPhone screenshots are uploaded for en-US, en-AU, en-CA, fr-CA and en-GB; the iPad 13" en-US slot still has the old set.
+- **L4:** the pending 2.0 description removes the stale section and the code-contradicted claims (150+ currencies, wrong categories, offline).
+- **Net:** releasing 2.0 resolves most of this task. What remains: confirm the App Store Connect privacy URL, review the label against SDKs, replace the iPad screenshots, and decide what happens to `easy-bills.netlify.app`.
+
 ## Steps
 - [ ] User: restore a working Terms of Use page (or point the description to Apple's standard EULA if that is what is intended — NEEDS CONFIRMATION). Check Schedule 2 of the Apple Developer Program License Agreement for subscription-link requirements.
 - [ ] User: update the privacy policy so it names Dues, matches the current App Privacy label and SDKs, and has its own URL; update the Privacy Policy URL in App Store Connect.
