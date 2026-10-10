@@ -19,3 +19,24 @@ credentials/
 Thumbs.db
 .vscode/
 .idea/
+
+# Additional signing material and service credentials
+*.p12
+*.cer
+*.crt
+*.der
+*.jks
+*.keystore
+*.provisionprofile
+AuthKey_*
+*service-account*.json
+GoogleService-Info.plist
+
+# Raw data exports anywhere outside reviewed reports (CSV in content/ is allowed)
+*.xlsx
+*.xls
+*.numbers
+*.tsv
+analytics/**/*.csv
+analytics/**/*.zip
+!analytics/reports/*-aggregate.csv
