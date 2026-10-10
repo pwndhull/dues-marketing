@@ -118,24 +118,24 @@ Hong Kong (`hk`) was also fetched; its page rendered in Chinese and IAP prices c
 
 **"You Might Also Like" also varies by storefront** (US/CA add e.g. "BillPlex: Shared Budget", "Monthly Bill Reminder Tracker", "Offline Bills & Subs Tracker", "Worth: Private Net worth"). See [`competitor-research.md`](competitor-research.md).
 
-## 2. Product claims in the description — Listing claims (verify in build)
-Source: S1/S2. These are the developer's statements. Marketing copy may reuse them only after the user confirms each one in the current build.
+## 2. Product claims in the description — Listing claims, now checked against code
+Source: S1/S2. These are the developer's statements. On 2026-10-10 each one was checked against the app source code at the estimated 1.2.0 commit; details are in [`feature-verification.md`](feature-verification.md). Code evidence is not runtime evidence: items marked "supported by code" are still unverified on a device.
 
 | Claim | Status |
 |---|---|
-| Bill tracking for utilities, rent, subscriptions, loans; due-date reminders; mark paid | Listing claim — partially visible in screenshots (dashboard, reminders setting, add-bill form) |
-| Recurring bills (weekly, monthly, yearly) | Listing claim |
-| Voice entry ("Add $500 electricity bill due next Friday") | Listing claim |
-| Split bills with push notification to each person; works before contacts join | Listing claim |
-| Family Plan — up to 5 household members | Listing claim; Family Plan IAPs verified (S2) |
-| Home Screen and Lock Screen widgets with quick-add | Listing claim |
-| Real-time cloud sync across devices | Listing claim |
-| Insights: monthly totals, trends, category breakdowns; CSV export | Listing claim — Insights screen visible in screenshot 2 |
-| 150+ currencies | Listing claim |
-| Works offline, syncs on reconnect | Listing claim — **NEEDS CONFIRMATION** (sign-in and cloud sync may limit this) |
-| "Privacy first — we never sell your data; secure encryption, no third-party tracking" | Listing claim — **NEEDS CONFIRMATION** against SDKs and privacy label (§4) |
-| Zero ads; dark mode | Listing claim; dark mode visible in screenshots |
-| Premium: unlimited bills, unlimited archive, Family Plan, priority support | Listing claim; free-plan limit **Unknown** |
+| Bill tracking for utilities, rent, subscriptions, loans; due-date reminders; mark paid | Supported by code |
+| Recurring bills (weekly, monthly, yearly) | Supported by code (fortnightly too) |
+| Voice entry ("Add $500 electricity bill due next Friday") | Supported by code; Hindi recognition NEEDS CONFIRMATION |
+| Split bills with push notification to each person; works before contacts join | Supported by code (split + push); "before contacts join" not checked |
+| Family Plan — up to 5 household members | Supported: 5 members + owner; Family Plan IAPs verified (S2) |
+| Home Screen and Lock Screen widgets with quick-add | Supported by code |
+| Real-time cloud sync across devices | Supported by code (Firestore) |
+| Insights: monthly totals, trends, category breakdowns; CSV export | Insights supported; **CSV export appears to be Premium**, not core |
+| 150+ currencies | **Contradicted: 20 currencies in code** |
+| Works offline, syncs on reconnect | **Overstated in 1.2.0** (memory-only cache); improved on unreleased `main` |
+| "Privacy first — we never sell your data; secure encryption, no third-party tracking" | "No third-party tracking" is **ambiguous**: Firebase Analytics and Crashlytics are linked, and there is no ATT prompt. "Never sell" is a user claim |
+| Zero ads; dark mode | Supported by code (no ad SDK linked; theme picker) |
+| Premium: unlimited bills, unlimited archive, Family Plan, priority support | Free plan: 5 active + 5 archived bills (code). "Priority support" should not be reused |
 
 ## 3. Screenshots — Verified (public)
 4 iPhone (6.7" set) and 4 iPad (12.9" set) screenshots; Apple allows up to 10 per size (S7). iPhone set reviewed at reduced resolution:
@@ -181,10 +181,10 @@ Priorities are Claude's recommendation; effort is a rough estimate; none of thes
 
 | ID | Finding (evidence) | Type | Recommendation | Priority | Owner |
 |---|---|---|---|---|---|
-| L1 | Terms of Use link HTTP 404, observed in passes 1 and 2 on 2026-10-10 (S4) | Verified | Restore/publish Terms page. Check Schedule 2 requirements. | P0 | User |
+| L1 | Terms of Use link HTTP 404, observed in passes 1 and 2 on 2026-10-10 (S4). The app itself links to Google Sites pages; the Netlify site serves an old "BillFlow" deploy | Verified | The 2.0 description switches to the Google Sites URLs. Confirm the App Store Connect Privacy Policy URL field as well | P0 | User |
 | L2 | Privacy policy branded "BillFlow", dated before launch; its text omits several data types the App Privacy label declares (§4) | Verified (policy text and declared label, pass 2); compliance is the user's judgement | Update policy to match current app and label; give it its own URL. | P0 | User |
-| L3 | Screenshot 3 shows an email-format address (S2); whether it is real is Unknown | Verified observation; real/not real **Unknown** | Replace with demo account data. | P0 | User |
-| L4 | Description section "NEW IN VERSION 1.1.0" is stale (S1) | Verified | Refresh in next metadata update. | P1 | Claude drafts, user approves |
+| L3 | Screenshot 3 shows an email-format address (S2). It matches a string in the app repo's history (developer machine path), so it is likely the owner's or a team account, not a customer's | Verified observation; owner **NEEDS CONFIRMATION** | Replace with demo account data. | P0 | User |
+| L4 | Description section "NEW IN VERSION 1.1.0" is stale (S1); the description also contains claims the code contradicts (150+ currencies, category list, offline) | Verified (code: [`feature-verification.md`](feature-verification.md)) | The pending 2.0 description (§9) already removes them. Ship it, or correct 1.2.0's description sooner | P0 | User |
 | L5 | Screenshots have no captions and do not show split bills / voice / widgets / Family Plan | Verified observation; impact is a **hypothesis** | Draft a captioned screenshot narrative using real screens. | P1 | Claude drafts |
 | L6 | Screenshots 1–2 lead with long-overdue bills, lakh grouping, very large sums | Verified observation; impact is a **hypothesis** | Use realistic demo data in the target locale's format. | P1 | User captures; Claude briefs |
 | L7 | English only; ratings only in AU (3) and IN (4); US has a separate subtitle (§1a) | Verified | Decide priority markets from App Store Connect territory data, not assumption. | P1 | User exports |
@@ -194,13 +194,15 @@ Priorities are Claude's recommendation; effort is a rough estimate; none of thes
 | L11 | Regional listings: keyword fields and localization-to-storefront mapping unknown (§1a) | Unknown | User exports each localization's name, subtitle, keywords, promo text into the repo; keyword research is done per localization. | P0 (blocks keyword work) | User |
 
 ## 7. Open questions for the user
+Update 2026-10-10: questions 2–6 are partly answered by the app repositories (see [`feature-verification.md`](feature-verification.md)). The remaining parts are marked.
+
 1. Which English localizations exist in App Store Connect (en-US, en-GB, en-AU, en-CA…), and what are the name, subtitle, keyword field, and promotional text for **each**?
    Was the different US subtitle a deliberate choice, and since when?
-2. Was "BillFlow" or "Easy Bills" a former name? Is `easy-bills.netlify.app` the intended long-term domain?
-3. What does the free plan include (bill limit), and is there a free trial?
-4. Is "works offline — full functionality" accurate with sign-in and sync?
-5. Which third-party SDKs ship in 1.2.0 (analytics, crash reporting)? Needed to verify "no third-party tracking".
-6. Is the email in screenshot 3 a real person's address?
+2. Was "BillFlow" or "Easy Bills" a former name? Is `easy-bills.netlify.app` the intended long-term domain? → The code has both names (subscription IDs `com.billflow.*`, repo names `Easy-bills-*`, display name "Dues"). The app links to Google Sites, and a Firebase-hosted Dues site also exists. **Which domain is canonical NEEDS CONFIRMATION.**
+3. What does the free plan include (bill limit), and is there a free trial? → **Free plan: 5 active + 5 archived bills (code).** Trial: the app repo says a 1-week trial was set in App Store Connect on 2026-10-09. Whether it is live for 1.2.0 users NEEDS CONFIRMATION.
+4. Is "works offline — full functionality" accurate with sign-in and sync? → **Answered by code: no, not in 1.2.0** (memory-only cache).
+5. Which third-party SDKs ship in 1.2.0? → **Firebase (Analytics, Crashlytics, Auth, Firestore, Messaging, Remote Config, Storage, Database) and Google Sign-In** (code). There is no ATT prompt.
+6. Is the email in screenshot 3 a real person's address? → Likely the owner's or a team account (it matches the app repo's history). Please confirm.
 7. Does the App Privacy label accurately reflect 1.2.0's actual data practices and SDKs? (The label shown is your own declaration; Claude can't verify data flows.)
 
 ## 8. Reconciliation log — Task 005 (2026-10-10)
@@ -219,3 +221,20 @@ Each material claim from pass 1 was re-checked against a current source in pass 
 | "Identical across all storefronts" included the privacy label | Pass 1 method review | **Overstated.** The label was compared only on pages that were diffed | Scoped each "identical" statement to the storefronts actually compared |
 | Version history dates with years | S2 shows day and month only | **Partly inferred** | Labelled the year as inferred |
 | Feature claims | — | Still **listing claims**, not verified in the build | No change |
+
+## 9. Pending 2.0.0 listing — not live
+**Source:** app repo `pwndhull/Easy-bills-ios`, `fastlane/metadata/<locale>/*.txt` at `main` @ `f676e19`. The commit adding them (`4fb412f`, 2026-10-08) is titled "ASO: match what App Store Connect accepted". The app repo's `docs/STATUS.md` (2026-10-09) says version 2.0.0 is "Prepare for Submission" with 12 localized listings.
+**Status:** user-provided (via the app repo). **Not observable publicly until 2.0.0 is released.** The live values in §1/§1a still apply today.
+
+| Locale | Subtitle (2.0) | Keywords (2.0) | Keyword bytes |
+|---|---|---|---|
+| en-US | Due dates, alerts & renewals | payment,budget,expense,split,subscription,organizer,planner,calendar,overdue,recurring,rent,utility | 99 |
+| en-GB | Council tax, rent & due dates | organiser,planner,calendar,overdue,recurring,payment,budget,expense,split,subscription,direct,debit | 99 |
+| en-AU | Due dates, rent & rego alerts | bpay,strata,council,rates,organiser,overdue,payment,budget,expense,split,subscription,bas,flatmate | 98 |
+| en-CA | Hydro, rent & due date alerts | organizer,calendar,overdue,recurring,payment,budget,expense,split,subscription,utility,roommate | 95 |
+
+- The name stays "Dues: Bill Tracker & Reminder" in all four.
+- Other 2.0 locales: fr-CA, fr-FR, es-MX, es-ES, de-DE, pt-BR, ar-SA, hi.
+- The 2.0 description removes the stale and contradicted claims in L4 and links to the Google Sites privacy and terms pages.
+
+**Measurement implication:** releasing 2.0 changes the subtitle, keywords, description and screenshots in every English storefront at once, together with the app itself. **A pre-2.0 baseline must be captured before release** (Task 001). Any later change cannot be attributed to a single variable.

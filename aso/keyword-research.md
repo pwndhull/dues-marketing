@@ -1,6 +1,6 @@
 # Keyword Research
 
-**Status:** Not started — blocked on the current keyword field for each localization (see [listing audit §1a, L9/L11](current-listing-audit.md#1a-regional-listings--verified-public)).
+**Status:** Not started here. The app repo already contains per-locale keyword sets for the pending 2.0 release, and the reasoning behind them (`pwndhull/Easy-bills-ios` `docs/strategy/ACQUISITION.md` §2: no volume data, rules-based). The **live 1.2.0** keyword fields are still unknown.
 **Task:** [003 — Keyword research per English localization](../tasks/inbox/003-keyword-research-per-localization.md)
 
 ## Rules
@@ -22,8 +22,14 @@
 ## Current keyword fields (user-provided)
 | Localization | Storefronts it serves | Name | Subtitle | Keyword field (verbatim) | Bytes | Provided on |
 |---|---|---|---|---|---|---|
-| en-US | United States (confirm) | Dues: Bill Tracker & Reminder | Bill Payment Manager & Budget | NEEDS CONFIRMATION | — | — |
-| NEEDS CONFIRMATION | AU, GB, CA, NZ, IE, IN, … | Dues: Bill Tracker & Reminder | Split Bills & Track Payments | NEEDS CONFIRMATION | — | — |
+| en-US (**live 1.2.0**) | United States (confirm) | Dues: Bill Tracker & Reminder | Bill Payment Manager & Budget | NEEDS CONFIRMATION | — | — |
+| NEEDS CONFIRMATION (**live 1.2.0**) | AU, GB, CA, NZ, IE, IN, … | Dues: Bill Tracker & Reminder | Split Bills & Track Payments | NEEDS CONFIRMATION | — | — |
+| en-US (**pending 2.0, not live**) | US | Dues: Bill Tracker & Reminder | Due dates, alerts & renewals | see [audit §9](current-listing-audit.md#9-pending-200-listing--not-live) | 99 | app repo fastlane, 2026-10-08 |
+| en-GB (**pending 2.0**) | UK (others? confirm) | same | Council tax, rent & due dates | see audit §9 | 99 | same |
+| en-AU (**pending 2.0**) | Australia | same | Due dates, rent & rego alerts | see audit §9 | 98 | same |
+| en-CA (**pending 2.0**) | Canada | same | Hydro, rent & due date alerts | see audit §9 | 95 | same |
+
+Phrase evidence for the pending sets: none recorded with dates or search observations. They are reasoned choices, not measured ones. After 2.0 ships, the phrase log below is how to check them.
 
 ## Candidate phrase log (template)
 One row per phrase per storefront per date. Leave cells empty rather than guessing.
